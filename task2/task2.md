@@ -23,7 +23,7 @@
    ```
 2. Перейдите в папку с проектом:
    ```bash
-   cd discrete_mathics/project
+   cd discrete_mathics
    ```
 3. Запустите программу:
    ```bash
