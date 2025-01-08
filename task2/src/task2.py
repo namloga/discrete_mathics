@@ -1,5 +1,4 @@
 from utils import read_file, write_file
-from itertools import permutations, combinations
 
 PATH = '../txtf/input.txt'
 OUT_PATH = '../txtf/output.txt'
@@ -8,8 +7,39 @@ OUT_PATH = '../txtf/output.txt'
 def is_derangement(remaining_elements, remaining_indices):
     return all(remaining_elements[i] != remaining_indices[i] + 1 for i in range(len(remaining_elements)))
 
+def combinations(arr, k):
+    result = []
+    n = len(arr)
 
-def Solve(n, k):
+    def backtrack(start, path):
+        if len(path) == k:
+            result.append(path[:])
+            return
+        for i in range(start, n):
+            backtrack(i + 1, path + [arr[i]])
+
+    backtrack(0, [])
+    return result
+
+def permutations(arr):
+    result = []
+
+    def backtrack(path, used):
+        if len(path) == len(arr):
+            result.append(path[:])
+            return
+        for i in range(len(arr)):
+            if not used[i]:
+                used[i] = True
+                path.append(arr[i])
+                backtrack(path, used)
+                path.pop()
+                used[i] = False
+
+    backtrack([], [False] * len(arr))
+    return result
+
+def solve(n, k):
     arr = list(range(1, n + 1))
     results = []
 
@@ -30,8 +60,6 @@ def Solve(n, k):
 
     return results
 
-
-
 def main():
     # Чтение данных из файла
     input_data = read_file(PATH)
@@ -39,7 +67,7 @@ def main():
     n = data[0]
     k = data[1]
 
-    result = Solve(n, k)
+    result = solve(n, k)
 
     # Запись результатов в файл
     write_file(OUT_PATH, '\n'.join(result))
