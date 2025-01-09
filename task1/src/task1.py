@@ -1,43 +1,26 @@
 from utils import read_file, write_file
-from collections import defaultdict
 
 PATH = '../txtf/input.txt'
 OUT_PATH = '../txtf/output.txt'
 
 def check_transitive(S, R):
     R_set = set(R)
-    forward_map = defaultdict(set)
-
-    for a, b in R:
-        if a != b:
-            forward_map[a].add(b)
-
-    for a, b in R:
+    for a, b in R_set:
         if a == b:
             continue
-        for c in forward_map.get(b, []):
-            if a != c and (a, c) not in R_set:
+        for b2, c in R_set:
+            if b == b2 and a != c and (a, c) not in R_set:
                 return False
-
     return True
-
-
 
 def check_anti_transitive(S, R):
     R_set = set(R)
-    forward_map = defaultdict(set)
-
-    for a, b in R:
-        if a != b:
-            forward_map[a].add(b)
-
-    for a, b in R:
+    for a, b in R_set:
         if a == b:
             continue
-        for c in forward_map.get(b, []):
-            if a != c and (a, c) in R_set:
+        for b2, c in R_set:
+            if b == b2 and a != c and (a, c) in R_set:
                 return False
-
     return True
 
 def task1(S, R):
