@@ -87,9 +87,8 @@ class TestRelationProperties(unittest.TestCase):
         self.assertTrue(properties['Not-transitive'])
 
     def test_large_reflexive(self):
-        """Kiểm tra quan hệ phản xạ với dữ liệu lớn."""
-        S = list(range(1, 21))  # 20 phần tử
-        R = [(i, i) for i in S]  # Tất cả các phần tử đều có quan hệ với chính nó
+        S = list(range(1, 21))
+        R = [(i, i) for i in S]
         properties = task1(S, R)
         self.assertTrue(properties['Reflexive'])
         self.assertFalse(properties['Anti-reflexive'])
